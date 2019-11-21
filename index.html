@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <title>Icosaedro</title>
+        <meta charset = "utf-8">
+        <script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
+        <script type="text/javascript" src="jquery-2.1.0.min.js"></script>
+        <script type="text/javascript" src="webgl-utils.js"></script>
+        <script type="text/javascript" src = "script.js"></script>
+        <script id="shader-vs" type="x-shader/x-vertex">
+            attribute vec3 aVertexPosition;
+            attribute vec4 aVertexColor;
+            
+            uniform mat4 uMMatrix;
+            uniform mat4 uVMatrix;
+            uniform mat4 uPMatrix;
+
+            varying vec4 vColor;
+            
+            void main(void){
+                gl_Position = uPMatrix * uVMatrix * uMMatrix * vec4(aVertexPosition, 1.0);
+                vColor = aVertexColor;
+            }
+          </script>
+          <script id="shader-fs" type="x-shader/x-fragment">
+            precision mediump float;
+            varying vec4 vColor;
+
+            void main(void){
+                gl_FragColor = vColor;
+            }
+          </script>
+    </head>
+    <body>
+        <div style = "width: 550px; margin: 0 auto; border-left: solid gray; border-right: solid gray; padding-left: 25px; font-family: Arial;">
+            <h1>Hello WebGL!</h1>
+            <h3>Giovani de A. Valdrighi</h3>
+            O icosaedro regular é o sólido que possui 20 faces, sendo todos triângulos equiláteros, 30 arestas e 12 vértices.</br></br>
+            Translação: </br>
+            X<input type = "range" min = "-50" max = "50" value = "0" id = "x">
+            Y<input type = "range" min = "-50" max = "50" value = "0" id = "y">
+            Z<input type = "range" min = "0" max = "100" value = "70" id = "z"> </br>
+            Rotação: </br>
+            X: <input type = "radio" value = "1" id = "x1" name= "xr"> 1
+        <input type = "radio" value = "0" id = "x0" name= "xr" checked="true"> 0 
+            Y: <input type = "radio" value = "1" id = "y1" name ="yr"> 1 
+            <input type = "radio" value = "0" id = "y0" name = "yr" checked="true"> 0 
+            Z: <input type = "radio" value = "1" id = "z1" name ="zr"> 1
+            <input type = "radio" value = "0" id = "z0" name = "zr" checked="true"> 0 </br></br>
+            <canvas id = "webgl" width="500" height="500"></canvas> </br>
+            <h2>Referência:</h2> <ul><li>
+                    Anderson Tavares. <a href = " http://vision.ime.usp.br/~acmt/hakyll/posts/2014-03-02-webgl-real-3d.html">Tutorial WebGL 4: Agora é em 3D. </a> 
+            </li></ul>
+        </div>
+    </body>
+</html>
